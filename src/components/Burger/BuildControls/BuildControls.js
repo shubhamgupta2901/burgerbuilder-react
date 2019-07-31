@@ -13,7 +13,7 @@ const buildControls =(props) => {
  
     return (
         <div className={styles.BuildControls}>
-            <p>Current Price: ${props.totalPrice}</p>
+            <p>Current Price: <strong>${props.totalPrice.toFixed(2)}</strong></p>
             {controls.map(control => 
                 <BuildControl 
                     key={control.type} 
@@ -23,18 +23,21 @@ const buildControls =(props) => {
                     onRemoveIngredient={props.onRemoveIngredient}
                 />
             )}
+            <button className={styles.OrderButton} disabled = {!props.purchasable}>ORDER NOW</button>
         </div>
     );
 }
     
 buildControls.propTypes ={
     totalPrice: PropTypes.number,
+    purchasable: PropTypes.bool,
     onAddIngredient: PropTypes.func,
     onRemoveIngredient: PropTypes.func,
 }
 
 buildControls.defaultProps ={
     totalPrice: 0,
+    purchasable: false,
     onAddIngredient: ()=>{},
     onRemoveIngredient: () => {},
 }

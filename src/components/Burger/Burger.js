@@ -32,9 +32,7 @@ burger.propTypes ={
 }
 
 burger.defaultProps ={
-    ingredients:{
-        
-    }
+    ingredients:{}
 }
 
 export default burger;

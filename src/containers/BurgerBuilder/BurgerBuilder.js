@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 
+
 const INGREDIENT_PRICES = {
   salad: 0.5,
   cheese: 0.4,
@@ -24,7 +25,6 @@ class BurgerBuilder extends React.Component {
   }
 
   addIngredientHandler = (type) =>{
-    console.log(`addIngredientHandler | type: ${type}`);
     const oldCount = this.state.ingredients[type];
     const updatedCount = oldCount+1;
     const updatedIngredients = {
@@ -45,15 +45,23 @@ class BurgerBuilder extends React.Component {
     this.setState({ingredients: updatedIngredients,totalPrice});
   }
 
+  isBurgerPurchable = () =>{
+    for(let [key,value] of Object.entries(this.state.ingredients)){
+      if(value>0)
+        return true;
+    }
+    return false;
+  }
   render(){
     return (
       <React.Fragment>
         <Burger ingredients={this.state.ingredients}/>
         <BuildControls 
           totalPrice={this.state.totalPrice}
+          purchasable={this.isBurgerPurchable()}
           onAddIngredient={this.addIngredientHandler}
           onRemoveIngredient={this.removeIngredientHandler}
-          />
+        />
     </React.Fragment>
     );
   }
