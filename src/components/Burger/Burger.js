@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import styles from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
+
 const burger =(props) => {
     function renderIngredients(){
-        const burgerIngredients = [];
+        let burgerIngredients = [];
         for(let[igName, igQuantity] of Object.entries(props.ingredients)){
             for(let i = 0; i<igQuantity; i++){
                 burgerIngredients.push(<BurgerIngredient type={igName}/>);
             }
         }
-        return(
-            <React.Fragment>
-                {burgerIngredients}
-            </React.Fragment>
-            
-        );
+        if(burgerIngredients.length === 0)
+            burgerIngredients = <p>Please start adding ingredients.</p>
+        
+        return burgerIngredients;
     }
     return (
         <div className={styles.Burger}>
