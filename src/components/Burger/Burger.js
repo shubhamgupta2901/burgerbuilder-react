@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+import * as Utils from '../../utils/Utils';
 
 
 const burger =(props) => {
@@ -9,7 +10,7 @@ const burger =(props) => {
         let burgerIngredients = [];
         for(let[igName, igQuantity] of Object.entries(props.ingredients)){
             for(let i = 0; i<igQuantity; i++){
-                burgerIngredients.push(<BurgerIngredient type={igName}/>);
+                burgerIngredients.push(<BurgerIngredient key={Utils.generateUniqueId()} type={igName}/>);
             }
         }
         if(burgerIngredients.length === 0)
@@ -24,7 +25,7 @@ const burger =(props) => {
             <BurgerIngredient type={"bread-bottom"}/>
         </div>
     );
-}
+}   
 
 burger.propTypes ={
     ingredients: PropTypes.object,
