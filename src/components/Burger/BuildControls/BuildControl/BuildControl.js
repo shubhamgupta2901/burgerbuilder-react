@@ -6,18 +6,24 @@ const buildControl =(props) => {
     return (
         <div className={styles.BuildControl}>
             <div className={styles.Label}>{props.label}</div>
-            <button className={styles.Less}>Less</button>
-            <button className={styles.Less}>More</button>
+            <button className={styles.More} onClick={()=>props.onAddIngredient(props.type)}>More</button>
+            <button className={styles.Less} onClick={()=>props.onRemoveIngredient(props.type)}>Less</button>
         </div>
     );
 }
 
 buildControl.propTypes ={
-    label: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    onAddIngredient: PropTypes.func,
+    onRemoveIngredient: PropTypes.func,
 }
 
 buildControl.defaultProps ={
-    label: 'salami',
+    label: '',
+    type: '',
+    onAddIngredient: ()=>{},
+    onRemoveIngredient: () => {},
 }
 
 export default buildControl;
