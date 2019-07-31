@@ -39,7 +39,6 @@ class BurgerBuilder extends React.Component {
   removeIngredientHandler = (type) =>{
     if(this.state.ingredients[type] === 0)
       return;
-    console.log(`removeIngredientHandler | type: ${type}`);
     const updatedIngredients = {...this.state.ingredients};
     updatedIngredients[type]--;
     const totalPrice = this.state.totalPrice - INGREDIENT_PRICES[type];
@@ -51,6 +50,7 @@ class BurgerBuilder extends React.Component {
       <React.Fragment>
         <Burger ingredients={this.state.ingredients}/>
         <BuildControls 
+          totalPrice={this.state.totalPrice}
           onAddIngredient={this.addIngredientHandler}
           onRemoveIngredient={this.removeIngredientHandler}
           />

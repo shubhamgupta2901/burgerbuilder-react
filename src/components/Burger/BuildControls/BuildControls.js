@@ -13,6 +13,7 @@ const buildControls =(props) => {
  
     return (
         <div className={styles.BuildControls}>
+            <p>Current Price: ${props.totalPrice}</p>
             {controls.map(control => 
                 <BuildControl 
                     key={control.type} 
@@ -27,11 +28,13 @@ const buildControls =(props) => {
 }
     
 buildControls.propTypes ={
+    totalPrice: PropTypes.number,
     onAddIngredient: PropTypes.func,
     onRemoveIngredient: PropTypes.func,
 }
 
 buildControls.defaultProps ={
+    totalPrice: 0,
     onAddIngredient: ()=>{},
     onRemoveIngredient: () => {},
 }
