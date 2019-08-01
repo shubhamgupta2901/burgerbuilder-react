@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 
 const INGREDIENT_PRICES = {
@@ -21,6 +23,7 @@ class BurgerBuilder extends React.Component {
         meat:0  
       },
       totalPrice: 4,
+      showOrderSummary: false,
     }
   }
 
@@ -52,15 +55,31 @@ class BurgerBuilder extends React.Component {
     }
     return false;
   }
+
+  onShowOrderSummary = () => {
+    this.setState({showOrderSummary: true});
+  }
+
+  onHideOrderSummary = () =>{
+    this.setState({showOrderSummary: false});
+  }
+
   render(){
     return (
       <React.Fragment>
+        <Modal 
+          visible={this.state.showOrderSummary}
+          onBackdropClicked = {this.onHideOrderSummary}
+          > 
+          <OrderSummary ingredients={this.state.ingredients}/>
+        </Modal>
         <Burger ingredients={this.state.ingredients}/>
         <BuildControls 
           totalPrice={this.state.totalPrice}
           purchasable={this.isBurgerPurchable()}
           onAddIngredient={this.addIngredientHandler}
           onRemoveIngredient={this.removeIngredientHandler}
+          onCheckout ={this.onShowOrderSummary}
         />
     </React.Fragment>
     );
