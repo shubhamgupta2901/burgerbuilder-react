@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './OrderSummary.module.css';
-import * as Utils from '../../../utils/Utils'
+import * as Utils from '../../../utils/Utils';
+import Button from '../../UI/Button/Button';
 
 const orderSummary =(props) => {
     
@@ -23,16 +24,26 @@ const orderSummary =(props) => {
             <ul>
                 {getIngredientSummary()}
             </ul>
+            <p>Total price: ${props.totalPrice.toFixed(2)}.</p>
+            <p>Do you wish to continue?</p>
+            <Button onClick={props.onCancel} btnType={"Danger"}>Cancel</Button>
+            <Button onClick={props.onCancel} btnType={"Success"}>Continue</Button>
         </React.Fragment>
     );
 }
 
 orderSummary.propTypes ={
     ingredients: PropTypes.object,
+    totalPrice: PropTypes.number,
+    onContinue:PropTypes.func,
+    onCancel: PropTypes.func,
 }
 
 orderSummary.defaultProps ={
     ingredients: {},
+    totalPrice: 0,
+    onContinue: ()=>{},
+    onCancel:()=>{},
 }
 
 export default orderSummary;

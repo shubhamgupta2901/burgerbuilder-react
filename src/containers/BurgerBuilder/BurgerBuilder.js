@@ -71,7 +71,12 @@ class BurgerBuilder extends React.Component {
           visible={this.state.showOrderSummary}
           onBackdropClicked = {this.onHideOrderSummary}
           > 
-          <OrderSummary ingredients={this.state.ingredients}/>
+          <OrderSummary 
+            ingredients={this.state.ingredients}
+            totalPrice={this.state.totalPrice}
+            onContinue= {this.onHideOrderSummary}
+            onCancel = {this.onHideOrderSummary}
+            />
         </Modal>
         <Burger ingredients={this.state.ingredients}/>
         <BuildControls 
