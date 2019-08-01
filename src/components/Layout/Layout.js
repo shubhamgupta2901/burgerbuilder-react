@@ -1,17 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import styles from './Layout.module.css'
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
-const layout = (props) => {
-    return(
+
+class Layout extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+    }
+  }
+  render(){
+    return (
         <React.Fragment>
             <Toolbar/>
             <SideDrawer/>
             <main className={styles.Content}>
-                {props.children}
+                {this.props.children}
             </main>
         </React.Fragment>
-    )
+    );
+  }
 }
 
-export default layout;
+Layout.propTypes ={
+}
+
+Layout.defaultProps ={
+}
+
+export default Layout;
+
