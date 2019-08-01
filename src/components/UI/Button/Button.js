@@ -10,12 +10,12 @@ const button =(props) => {
 
 button.propTypes ={
     onClick: PropTypes.func,
-    btnType: PropTypes.oneOf(['Success','Danger'])
+    btnType: PropTypes.oneOf(['Neutral','Success','Danger'])
 }
 
 button.defaultProps ={
     onClick: ()=>{},
-    btnType: 'Success'
+    btnType: 'Neutral'
 }
 
 export default button;
