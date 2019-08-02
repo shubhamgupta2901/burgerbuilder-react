@@ -4,6 +4,21 @@ import styles from './Modal.module.css';
 import Backdrop from '../Backdrop/Backdrop';
 
 class Modal extends React.Component{
+
+    // 
+    /**
+     * Update modal only when its visibility changes.
+     * This will improve some performance as we would not be updating contents of modal even when its visibilty is not changing.
+     */
+    shouldComponentUpdate(nextProps, nextState) {
+        if(nextProps.visible !== this.props.visible)
+            return true;
+        return false;
+    }
+
+    componentWillUpdate(){
+        console.log(`Modal | componentWillUpdate`)
+    }
     render(){
         return (
             <React.Fragment>
