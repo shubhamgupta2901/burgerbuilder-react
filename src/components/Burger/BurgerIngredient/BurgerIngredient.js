@@ -41,7 +41,7 @@ burgerIngredient.propTypes ={
         'cheese',
         'salad',
         'bacon'
-    ])
+    ]).isRequired
 }
 
 burgerIngredient.defaultProps ={
