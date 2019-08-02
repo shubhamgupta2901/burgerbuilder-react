@@ -3,31 +3,33 @@ import PropTypes from 'prop-types';
 import styles from './Modal.module.css';
 import Backdrop from '../Backdrop/Backdrop';
 
-const modal =(props) => {
-    return (
-        <React.Fragment>
-            <Backdrop visible={props.visible} onClick={props.onBackdropClicked}/>
-            <div 
-                className={styles.Modal}
-                style={{
-                    transform: props.visible ? 'translateY(0)' : 'translateY(-100vh)',
-                    opacity: props.visible  ? 1 : 0,
-                }}
-            >
-                {props.children}
-            </div>
-        </React.Fragment>
-    );
+class Modal extends React.Component{
+    render(){
+        return (
+            <React.Fragment>
+                <Backdrop visible={this.props.visible} onClick={this.props.onBackdropClicked}/>
+                <div 
+                    className={styles.Modal}
+                    style={{
+                        transform: this.props.visible ? 'translateY(0)' : 'translateY(-100vh)',
+                        opacity: this.props.visible  ? 1 : 0,
+                    }}
+                >
+                    {this.props.children}
+                </div>
+            </React.Fragment>
+        );
+    }
 }
 
-modal.propTypes ={
+Modal.propTypes ={
     visible: PropTypes.bool,
     onBackdropClicked: PropTypes.func,
 }
 
-modal.defaultProps ={
+Modal.defaultProps ={
     visible: true,
     onBackdropClicked: ()=>{}
 }
 
-export default modal;
+export default Modal;
