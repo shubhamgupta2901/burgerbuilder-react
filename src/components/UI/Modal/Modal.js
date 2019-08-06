@@ -7,18 +7,14 @@ class Modal extends React.Component{
 
     // 
     /**
-     * Update modal only when its visibility changes.
+     * Update modal only when its visibility changes OR a children changes
      * This will improve some performance as we would not be updating contents of modal even when its visibilty is not changing.
      */
     shouldComponentUpdate(nextProps, nextState) {
-        if(nextProps.visible !== this.props.visible)
-            return true;
-        return false;
+        const shouldComponentUpdate = nextProps.visible !== this.props.visible || nextProps.children !== this.props.children;
+        return shouldComponentUpdate; 
     }
 
-    componentWillUpdate(){
-        console.log(`Modal | componentWillUpdate`)
-    }
     render(){
         return (
             <React.Fragment>

@@ -5,6 +5,8 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 // import axios from 'axios';
 
 
@@ -26,6 +28,7 @@ class BurgerBuilder extends React.Component {
       },
       totalPrice: 4,
       showOrderSummary: false,
+      loading: false,
     }
   }
 
@@ -85,13 +88,27 @@ class BurgerBuilder extends React.Component {
       deliveryMethod: 'fastest',
     }
     try {
-      const response = await axios.post('/orders.json',order);
-      console.log(response);
-      this.onHideOrderSummary();
+      this.setState({loading: true});
+      const response = await axios.post('/orders.jon',order);
+      this.setState({loading: false, showOrderSummary: false});
     } catch (error) {
       console.log(error);
+      this.setState({loading: false,showOrderSummary: false})
     }
     
+  }
+
+  renderModalContents = () =>{
+    if(this.state.loading)
+      return <Spinner/>
+    return (
+      <OrderSummary 
+        ingredients={this.state.ingredients}
+        totalPrice={this.state.totalPrice}
+        onContinue= {this.onPurchaseContinue}
+        onCancel = {this.onHideOrderSummary}
+      />
+    );
   }
   render(){
     return (
@@ -100,12 +117,7 @@ class BurgerBuilder extends React.Component {
           visible={this.state.showOrderSummary}
           onBackdropClicked = {this.onHideOrderSummary}
           > 
-          <OrderSummary 
-            ingredients={this.state.ingredients}
-            totalPrice={this.state.totalPrice}
-            onContinue= {this.onPurchaseContinue}
-            onCancel = {this.onHideOrderSummary}
-            />
+            {this.renderModalContents()}
         </Modal>
         <Burger ingredients={this.state.ingredients}/>
         <BuildControls 
@@ -126,4 +138,4 @@ BurgerBuilder.propTypes ={
 BurgerBuilder.defaultProps ={
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder,axios);
