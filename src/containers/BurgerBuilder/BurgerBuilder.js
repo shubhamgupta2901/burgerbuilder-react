@@ -89,7 +89,7 @@ class BurgerBuilder extends React.Component {
     }
     try {
       this.setState({loading: true});
-      const response = await axios.post('/orders.jon',order);
+      const response = await axios.post('/orders.json',order);
       this.setState({loading: false, showOrderSummary: false});
     } catch (error) {
       console.log(error);
