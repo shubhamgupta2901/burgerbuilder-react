@@ -4,6 +4,8 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import axios from '../../axios-orders';
+// import axios from 'axios';
 
 
 const INGREDIENT_PRICES = {
@@ -61,9 +63,36 @@ class BurgerBuilder extends React.Component {
   }
 
   onHideOrderSummary = () =>{
+    console.log(`onHideOrderSummary`)
     this.setState({showOrderSummary: false});
   }
 
+  onPurchaseContinue = async () =>{  
+
+    console.log('onPurchaseContinue')
+    const order = {
+      ingredients: this.state.ingredients,
+      price: this.state.totalPrice,
+      customer: {
+        name: 'Ronald Weasly',
+        address: {
+          street: 'Weasly Res',
+          zipCode: '934',
+          country: 'Britain'
+        },
+        email: 'sectumsempra@gmail.com'
+      },
+      deliveryMethod: 'fastest',
+    }
+    try {
+      const response = await axios.post('/orders.json',order);
+      console.log(response);
+      this.onHideOrderSummary();
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
   render(){
     return (
       <React.Fragment>
@@ -74,7 +103,7 @@ class BurgerBuilder extends React.Component {
           <OrderSummary 
             ingredients={this.state.ingredients}
             totalPrice={this.state.totalPrice}
-            onContinue= {this.onHideOrderSummary}
+            onContinue= {this.onPurchaseContinue}
             onCancel = {this.onHideOrderSummary}
             />
         </Modal>

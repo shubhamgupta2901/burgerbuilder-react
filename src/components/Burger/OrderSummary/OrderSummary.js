@@ -32,7 +32,7 @@ class OrderSummary extends React.Component {
                 <p>Total price: ${this.props.totalPrice.toFixed(2)}.</p>
                 <p>Do you wish to continue?</p>
                 <Button onClick={this.props.onCancel} btnType={"Danger"}>Cancel</Button>
-                <Button onClick={this.props.onCancel} btnType={"Success"}>Continue</Button>
+                <Button onClick={this.props.onContinue} btnType={"Success"}>Continue</Button>
             </React.Fragment>
         );
     }
