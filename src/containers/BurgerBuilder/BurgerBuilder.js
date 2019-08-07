@@ -20,16 +20,29 @@ class BurgerBuilder extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      ingredients:{
-        salad:0,
-        bacon:0,
-        cheese:0,
-        meat:0  
-      },
-      totalPrice: 4,
+      ingredients:null,
+      ingredientPrices: null,
+      totalPrice: null,
       showOrderSummary: false,
       loading: false,
+      error: false,
     }
+  }
+
+  async componentDidMount() {
+    try {
+      const response = await axios.get(`/ingredientsInfo.json`);
+      this.setState({
+        error: false,
+        totalPrice: response.data.basePrice,
+        ingredientPrices: response.data.ingredientPrices,
+        ingredients: response.data.ingredients,
+      })
+    } catch (error) {
+      console.log(error);
+      this.setState({error: true})
+    }
+    
   }
 
   addIngredientHandler = (type) =>{
@@ -54,10 +67,12 @@ class BurgerBuilder extends React.Component {
   }
 
   isBurgerPurchable = () =>{
-    for(let [key,value] of Object.entries(this.state.ingredients)){
-      if(value>0)
-        return true;
-    }
+    if(this.state.ingredients){
+      for(let [key,value] of Object.entries(this.state.ingredients)){
+        if(value>0)
+          return true;
+      }
+    } 
     return false;
   }
 
@@ -110,24 +125,39 @@ class BurgerBuilder extends React.Component {
       />
     );
   }
+
+  renderBody = () =>{
+    if(this.state.error){
+      return <p>Ingredients cannot be loaded!</p>
+    }
+    if(this.state.ingredients && this.state.totalPrice && this.state.ingredientPrices) 
+      return(
+        <div>
+          <Modal 
+            visible={this.state.showOrderSummary}
+            onBackdropClicked = {this.onHideOrderSummary}
+            > 
+              {this.renderModalContents()}
+          </Modal>
+          <Burger ingredients={this.state.ingredients}/>
+          <BuildControls 
+            totalPrice={this.state.totalPrice}
+            purchasable={this.isBurgerPurchable()}
+            onAddIngredient={this.addIngredientHandler}
+            onRemoveIngredient={this.removeIngredientHandler}
+            onCheckout ={this.onShowOrderSummary}
+          />
+        </div>
+      );
+    return <Spinner/>
+  }
+
+
   render(){
-    return (
+    return  (
       <React.Fragment>
-        <Modal 
-          visible={this.state.showOrderSummary}
-          onBackdropClicked = {this.onHideOrderSummary}
-          > 
-            {this.renderModalContents()}
-        </Modal>
-        <Burger ingredients={this.state.ingredients}/>
-        <BuildControls 
-          totalPrice={this.state.totalPrice}
-          purchasable={this.isBurgerPurchable()}
-          onAddIngredient={this.addIngredientHandler}
-          onRemoveIngredient={this.removeIngredientHandler}
-          onCheckout ={this.onShowOrderSummary}
-        />
-    </React.Fragment>
+        {this.renderBody()}
+      </React.Fragment>
     );
   }
 }
