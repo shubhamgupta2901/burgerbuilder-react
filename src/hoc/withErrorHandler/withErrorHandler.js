@@ -19,7 +19,7 @@ const withErrorHandler = (WrappedComponent,axios) => {
         componentWillMount(){
             if(axios){
                 //Every time this axios instance sends a request clear the error state of component
-                axios.interceptors.request.use((request, error)=>{
+                this.requestInterceptor = axios.interceptors.request.use((request, error)=>{
                     this.setState({error:null});
                     return request;
                 })
@@ -28,11 +28,20 @@ const withErrorHandler = (WrappedComponent,axios) => {
                  * Every time a request is made using this instance of axios, and we encounter an error, this interceptor
                  * will set the error state of this component with the error we receive via axios instance. 
                  */
-                axios.interceptors.response.use(response => response, error =>{
+                this.responseInterceptor = axios.interceptors.response.use(response => response, error =>{
                     this.setState({error});
                 })
             }
         }
+
+        componentWillUnmount(){
+            if(axios){
+                axios.interceptors.request.eject(this.requestInterceptor);
+                axios.interceptors.response.eject(this.responseInterceptor);
+            }
+        }
+
+
         render(){
             return(
                 <React.Fragment>
