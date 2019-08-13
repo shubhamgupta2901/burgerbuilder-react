@@ -1,6 +1,5 @@
 import React from 'react';
 import Modal from '../../components/UI/Modal/Modal'
-import { appendFileSync } from 'fs';
 
 /**
  * This is a Higher Order Component. It is a function that takes a WrappedComponent and returns an EnhancedComponent.
