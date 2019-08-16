@@ -9,7 +9,7 @@ const toolbar =(props) => {
         <header className={styles.Toolbar}>
             <DrawerToggle onClick={props.onSideDrawerToggle}></DrawerToggle>
             <div className={styles.Logo}>
-                <Logo />
+                <Logo/>
             </div>
             <nav className={styles.DesktopOnly}> <NavigationItems/> </nav>
         </header>
@@ -20,7 +20,7 @@ toolbar.propTypes ={
     onSideDrawerToggle: PropTypes.func,
 }
 toolbar.defaultProps ={
-    onSideDrawerToggle: ()=>{}
+    onSideDrawerToggle: ()=>{},
 }
 
 export default toolbar;
