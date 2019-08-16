@@ -14,10 +14,24 @@ class Checkout extends React.Component {
         }
     }
   }
+
+  onCancel = () =>{
+    console.log("Checkout Cancel");
+    this.props.history.goBack();
+  }
+
+  onContinue = () =>{
+    console.log("Checkout continue");
+    this.props.history.replace('checkout/contact-data');
+  }
   render(){
     return (
         <div>
-            <CheckoutSummary ingredients={this.state.ingredients}/>
+            <CheckoutSummary 
+              ingredients={this.state.ingredients}
+              onCancel={this.onCancel}
+              onContinue = {this.onContinue}
+              />
         </div>
     );
   }

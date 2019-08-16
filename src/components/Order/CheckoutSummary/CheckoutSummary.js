@@ -13,13 +13,13 @@ const checkoutSummary =(props) => {
 
             </div>
             <Button 
-                onClick={()=>{console.log('Cancel')}}
+                onClick={props.onCancel}
             >
                 Cancel
             </Button>
             <Button 
                 btnType={"Success"}
-                onClick ={()=>{console.log('Continue')}}
+                onClick ={props.onContinue}
             >
                 Continue
             </Button>
@@ -29,10 +29,14 @@ const checkoutSummary =(props) => {
 
 checkoutSummary.propTypes ={
     ingredients: PropTypes.object,
+    onContinue: PropTypes.func,
+    onCancel: PropTypes.func,
 }
 
 checkoutSummary.defaultProps ={
-    ingredients:{}
+    ingredients:{},
+    onContinue: ()=>{},
+    onCancel: ()=>{},
 }
 
 export default checkoutSummary;
