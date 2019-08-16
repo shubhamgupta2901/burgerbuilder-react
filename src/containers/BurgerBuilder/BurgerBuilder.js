@@ -9,13 +9,6 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 // import axios from 'axios';
 
-
-const INGREDIENT_PRICES = {
-  salad: 0.5,
-  cheese: 0.4,
-  meat: 1.3,
-  bacon: 0.7
-}
 class BurgerBuilder extends React.Component {
   constructor(props){
     super(props);
@@ -29,6 +22,9 @@ class BurgerBuilder extends React.Component {
     }
   }
 
+  /**
+   * Getting available ingredients, and ingredient prices from the 
+   */
   async componentDidMount() {
     try {
       const response = await axios.get(`/ingredientsInfo.json`);
@@ -52,7 +48,7 @@ class BurgerBuilder extends React.Component {
       ...this.state.ingredients
     }
     updatedIngredients[type] = updatedCount;
-    let totalPrice = this.state.totalPrice + INGREDIENT_PRICES[type];
+    let totalPrice = this.state.totalPrice + this.state.ingredientPrices[type];
     this.setState({ingredients: updatedIngredients, totalPrice});
 
   }
@@ -62,7 +58,7 @@ class BurgerBuilder extends React.Component {
       return;
     const updatedIngredients = {...this.state.ingredients};
     updatedIngredients[type]--;
-    const totalPrice = this.state.totalPrice - INGREDIENT_PRICES[type];
+    const totalPrice = this.state.totalPrice - this.state.ingredientPrices[type];
     this.setState({ingredients: updatedIngredients,totalPrice});
   }
 
