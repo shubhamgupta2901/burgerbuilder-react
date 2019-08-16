@@ -31,7 +31,7 @@ class Checkout extends React.Component {
     console.log("Checkout Cancel");
     this.props.history.goBack();
   }
-ß
+
   onContinue = () =>{
     console.log("Checkout continue");
     this.props.history.replace('checkout/contact-data');

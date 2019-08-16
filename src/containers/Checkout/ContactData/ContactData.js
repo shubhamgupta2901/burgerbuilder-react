@@ -27,7 +27,7 @@ class ContactData extends React.Component {
     console.log('onPurchaseContinue')
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.price,
+      price: parseFloat(this.props.price).toFixed(2),
       customer: {
         name: 'Ronald Weasly',
         address: {
