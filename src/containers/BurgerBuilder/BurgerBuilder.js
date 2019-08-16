@@ -87,7 +87,7 @@ class BurgerBuilder extends React.Component {
 
   onPurchaseContinue = async () =>{  
 
-    console.log(this.props);
+    console.log(this.props.history.push('/checkout'));
 
     // console.log('onPurchaseContinue')
     // const order = {

@@ -23,6 +23,7 @@ axios.interceptors.response.use(response =>{
         return Promise.reject(error);
 });
 
+//routing enabled app component
 const app = (
     <BrowserRouter>
         <App/>
