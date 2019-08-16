@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary'
+import {Route} from 'react-router-dom';
 import queryString from 'query-string'
+import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary'
+import ContactData from './ContactData/ContactData';
 class Checkout extends React.Component {
   constructor(props){
     super(props);
@@ -32,6 +34,7 @@ class Checkout extends React.Component {
               onCancel={this.onCancel}
               onContinue = {this.onContinue}
               />
+              <Route path={this.props.match.path + '/contact-data'} component = {ContactData}/> 
         </div>
     );
   }
