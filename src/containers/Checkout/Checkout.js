@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary'
-
+import queryString from 'query-string'
 class Checkout extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-        ingredients:{
-            salad: 1,
-            cheese: 1,
-            meat: 1,
-            bacon: 1
-        }
+        ingredients:{}
     }
+  }
+
+  componentDidMount(){
+    const query = queryString.parse(this.props.location.search);
+    this.setState({ingredients: query})
   }
 
   onCancel = () =>{

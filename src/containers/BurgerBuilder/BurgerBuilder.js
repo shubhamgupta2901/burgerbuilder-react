@@ -9,6 +9,14 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 // import axios from 'axios';
 
+/**
+ingredients:{
+  salad: 1,
+  cheese: 1,
+  meat: 1,
+  bacon: 1
+}
+ */
 class BurgerBuilder extends React.Component {
   constructor(props){
     super(props);
@@ -81,9 +89,23 @@ class BurgerBuilder extends React.Component {
     this.setState({showOrderSummary: false});
   }
 
+  /**
+   * Sending query parameters along with push the checkout route. 
+   * This query parameter will have information related to ingredients.
+   * The Checkout route can then parse these ingredients and show it in it's CheckoutSummary child component.
+   */
   onPurchaseContinue = async () =>{  
-
-    console.log(this.props.history.push('/checkout'));
+    //`?salad=${this.state.ingredients.salad}&cheese=${this.state.ingredients.cheese}&meat=${this.state.ingredients.meat}&bacon=${this.state.ingredients.bacon}`
+    const queryParameter = [];
+    for (let [key, value] of Object.entries(this.state.ingredients)){
+      queryParameter.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+    } 
+    const queryString = queryParameter.join('&');
+    
+    this.props.history.push({
+      pathname: '/checkout',
+      search:'?'+ queryString,
+    })
 
     // console.log('onPurchaseContinue')
     // const order = {
