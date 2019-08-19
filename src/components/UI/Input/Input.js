@@ -4,15 +4,18 @@ import styles from './Input.module.css';
 
 const input =(props) => {
     let inputElement = null;
-    switch(props.inputtype){
+    switch(props.elementType){
         case 'input':
-            inputElement = <input className={styles.InputElement} {...props}/>;
+            inputElement = <input className={styles.InputElement} {...props.elementConfig} value={props.value}/>;
             break;
         case 'textarea':
-            inputElement = <textarea className={styles.InputElement} {...props}/>;
+            inputElement = <textarea className={styles.InputElement} {...props.elementConfig} value={props.value}/>;
+            break;
+        case 'select':
+            inputElement = <select className={styles.InputElement} {...props.elementConfig} value={props.value}/>
             break;
         default: 
-            inputElement = <input className={styles.InputElement} {...props}/>;
+            inputElement = <input className={styles.InputElement} {...props.elementConfig} value={props.value}/>;
             break;
     }
     return (
@@ -24,14 +27,17 @@ const input =(props) => {
 }
 
 input.propTypes ={
-    inputtype: PropTypes.oneOf(['input','textarea']),
+    elementType: PropTypes.oneOf(['input','textarea','select']),
+    elementConfig: PropTypes.object,
     label: PropTypes.string,
+    value:PropTypes.oneOfType([PropTypes.string]),
 }
 
 input.defaultProps ={
+    elementType:'input',
+    elementConfig:{},
     label: "",
-    inputtype:'input',
-
+    value: ""
 }
 
 export default input;

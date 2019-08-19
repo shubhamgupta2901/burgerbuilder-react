@@ -12,14 +12,27 @@ class ContactData extends React.Component {
     super(props);
     console.log("ContactData consturctor")
     this.state = {
-        name:'',
-        email: '',
-        address: {
-            street: '',
-            postalCode: '',
+        orderForm:{
+          name: this.createElementConfig('input', {type: 'text', placeholder: 'Your name'}, 'Ronald Weasely'),
+          street: this.createElementConfig('input', {type: 'text', placeholder: 'Street Name'}, 'Weaseley Manor'),
+          zipCode: this.createElementConfig('input', {type: 'text', placeholder: 'Zipcode'}, '934'),
+          country: this.createElementConfig('input', {type: 'text', placeholder: 'Country'}, 'Britain'),
+          email: this.createElementConfig('input',{type: 'email', placeholder: 'Email address'},'sectumsempra@gmail.com'),
+          deliveryMethod: this.createElementConfig('select',{options: [
+              {value:'fastest', displayValue: 'Fastest'},
+              {value:'cheapest', displayValue: 'Cheapest'},
+            ]},'sectumsempra@gmail.com'),
         },
         loading: false,
     }
+  }
+
+  createElementConfig = (elementType = 'input', elementConfig = {type: 'text', placeholder:'placeholder'},value = '') => {
+    return {
+        elementType,
+        elementConfig,
+        value,
+    };
   }
   onBurgerOrdered = async (event) =>{
     event.preventDefault();
@@ -29,16 +42,7 @@ class ContactData extends React.Component {
     const order = {
       ingredients: this.props.ingredients,
       price: parseFloat(this.props.price).toFixed(2),
-      customer: {
-        name: 'Ronald Weasly',
-        address: {
-          street: 'Weasly Res',
-          zipCode: '934',
-          country: 'Britain'
-        },
-        email: 'sectumsempra@gmail.com'
-      },
-      deliveryMethod: 'fastest',
+      
     }
     try {
       this.setState({loading: true});
@@ -61,10 +65,12 @@ class ContactData extends React.Component {
       <div >
           <h4>Enter your contact data</h4>
           <form>
-              <Input inputtype={"input"} type="email" name ="email" placeholder="Your email"></Input>
-              <Input inputtype={"input"} type="text" name ="street" placeholder="Street"></Input>
-              <Input inputtype={"input"} type="text" name ="postalCode" placeholder="Postalcode"></Input>
-              <Input inputtype={"input"} type="text" name ="name" placeholder="Your name"></Input>
+              <Input 
+                elementType={this.state.orderForm.name.elementType} 
+                value={this.state.orderForm.name.value} 
+                elementConfig={this.state.orderForm.name.elementConfig}
+                label= {"Name"}
+              />
               <Button onClick={(event)=>this.onBurgerOrdered(event)} btnType="Success">ORDER</Button>
           </form>
       </div>
