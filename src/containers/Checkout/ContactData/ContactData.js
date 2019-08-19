@@ -4,6 +4,7 @@ import axios from '../../../axios-orders';
 import styles from './ContactData.module.css';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Input/Input';
 
 
 class ContactData extends React.Component {
@@ -60,10 +61,10 @@ class ContactData extends React.Component {
       <div >
           <h4>Enter your contact data</h4>
           <form>
-              <input type="text" name ="name" placeholder="Your name"></input>
-              <input type="email" name ="email" placeholder="Your email"></input>
-              <input type="text" name ="street" placeholder="Street"></input>
-              <input type="text" name ="postalCode" placeholder="Postalcode"></input>
+              <Input inputtype={"input"} type="email" name ="email" placeholder="Your email"></Input>
+              <Input inputtype={"input"} type="text" name ="street" placeholder="Street"></Input>
+              <Input inputtype={"input"} type="text" name ="postalCode" placeholder="Postalcode"></Input>
+              <Input inputtype={"input"} type="text" name ="name" placeholder="Your name"></Input>
               <Button onClick={(event)=>this.onBurgerOrdered(event)} btnType="Success">ORDER</Button>
           </form>
       </div>
